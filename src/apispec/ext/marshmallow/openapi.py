@@ -719,6 +719,11 @@ class OpenAPIConverter(object):
                     k: self.resolve_schema_dict(v)
                     for k, v in schema["properties"].items()
                 }
+            if "oneOf" in schema:
+                schema["oneOf"] = [
+                    self.resolve_schema_dict(c)
+                    for c in schema["oneOf"]
+                ]
             return schema
 
         return self.resolve_nested_schema(schema)
